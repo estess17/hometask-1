@@ -1,7 +1,3 @@
-:root {
-
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -13,7 +9,7 @@ body {
     flex-direction: column;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 50px 10px 0 10px;
+    padding: 10px;
     font-family: Arial, sans-serif;
 }
 
@@ -47,6 +43,7 @@ body {
 .table-body__icons {
     display: flex;
     align-items: center;
+    user-select: none;
 }
 
 .table-body__icons img {
@@ -79,16 +76,24 @@ tbody tr:nth-child(even) {
     background-color: #f5f5f5;
 }
 
-.create {
+.buttons {
     align-self: flex-end;
 }
 
-.create button {
+.buttons button {
+    width: 100px;
     margin-bottom: 40px;
     padding: 8px 10px;
     border-radius: 5px;
     border: none;
+    cursor: pointer;
+}
+
+.create  {
     background-color: #19b900;
     color: #f2f2f2;
-    cursor: pointer;
+}
+.archived  {
+    background-color: #0088e3;
+    color: #f2f2f2;
 }

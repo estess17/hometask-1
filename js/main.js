@@ -1,109 +1,115 @@
 import {cutText} from './utils.js';
+import {modal, closeModal, getFormData, setFormData} from './modal.js';
+import data from '../data/notes.json' assert {type: 'json'};
 
-const tableBody = document.querySelector('.table-body');
-const summaryTableBody = document.querySelector('.summary-table-body');
 
-let notes = [
-    {
-        id: 0,
-        name: 'Shopping list',
-        created: 'April 20,2021',
-        category: 'Task',
-        content: 'Tomatoes, bread',
-        dates: '',
-        isArchive: false,
-    },
-    {
-        id: 1,
-        name: 'New Feature',
-        created: 'May 05,2021',
-        category: 'Idea',
-        content: 'Implement new task todo list adadada 3/5/2021, 5/5/2021, Implement new task todo list adadada 3/5/2021, 5/5/2021',
-        dates: '3/5/2021, 5/5/2021',
-        isArchive: false,
-    },
-    {
-        id: 2,
-        name: 'Shopping list',
-        created: 'April 20,2021',
-        category: 'Random Thought',
-        content: 'Tomatoes, bread',
-        dates: '',
-        isArchive: false,
-    },
-];
+window.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.querySelector('.table-body');
+    const summaryTableBody = document.querySelector('.summary-table-body');
+    const createBtn = document.getElementById('createBtn');
+    const editBtn = document.getElementById('editBtn');
 
-const summary = () => {
-    return [
-        {
-            category: 'Task',
-            active: notes.filter(note => note.category === 'Task' && !note.isArchive).length,
-            archived: notes.filter(note => note.category === 'Task' && note.isArchive).length,
-        },
-        {
-            category: 'Idea',
-            active: notes.filter(note => note.category === 'Idea' && !note.isArchive).length,
-            archived: notes.filter(note => note.category === 'Idea' && note.isArchive).length,
-        },
-        {
-            category: 'Random Thought',
-            active: notes.filter(note => note.category === 'Random Thought' && !note.isArchive).length,
-            archived: notes.filter(note => note.category === 'Random Thought' && note.isArchive).length,
-        },
-    ];
-}
+    let notes = data;
 
-const generateNote = (note) => {
-    return `
-        <tr>
-            <td>${note.name}</td>
-            <td>${note.created}</td>
-            <td>${note.category}</td>
-            <td>${cutText(note.content, 45)}</td>
-            <td>${note.dates}
-            <td class="table-body__icons">
-                <img src="./assets/pen-to-square-solid.svg" alt="edit-icon" onclick="editNote(${note.id})">
-                <img src="./assets/box-archive-solid.svg" alt="archive-icon" onclick="archiveNote(${note.id})">
-                <img src="./assets/trash-solid.svg" alt="delete-icon" onclick="deleteNote(${note.id})">
-            </td>
-        </tr>
-    `;
-};
+    const summary = () => {
+        return [
+            {
+                category: 'Task',
+                active: notes.filter(note => note.category === 'Task' && !note.isArchive).length,
+                archived: notes.filter(note => note.category === 'Task' && note.isArchive).length,
+            },
+            {
+                category: 'Idea',
+                active: notes.filter(note => note.category === 'Idea' && !note.isArchive).length,
+                archived: notes.filter(note => note.category === 'Idea' && note.isArchive).length,
+            },
+            {
+                category: 'Random Thought',
+                active: notes.filter(note => note.category === 'Random Thought' && !note.isArchive).length,
+                archived: notes.filter(note => note.category === 'Random Thought' && note.isArchive).length,
+            },
+        ];
+    };
 
-const generateSummary = (summary) => {
-    return `
-        <tr>
-            <td>${summary.category}</td>
-            <td>${summary.active}</td>   
-            <td>${summary.archived}</tr>
-    `;
-};
+    const generateNote = (note) => {
+        return `
+            <tr>
+                <td>${note.name}</td>
+                <td>${note.created}</td>
+                <td>${note.category}</td>
+                <td>${cutText(note.content, 45)}</td>
+                <td>${note.dates}
+                <td class="table-body__icons">
+                    <img src="./assets/pen-to-square-solid.svg" alt="edit-icon" onclick="editNote(${note.id})">
+                    <img src="./assets/box-archive-solid.svg" alt="archive-icon" onclick="archiveNote(${note.id})">
+                    <img src="./assets/trash-solid.svg" alt="delete-icon" onclick="deleteNote(${note.id})">
+                </td>
+            </tr>
+        `;
+    };
 
-const fillTables = () => {
-    if (notes.length > 0 && notes.some(note => !note.isArchive)) {
-        tableBody.innerHTML = notes.filter(note => !note.isArchive).map(note => generateNote(note)).join('');
-    } else {
-        tableBody.innerHTML = '<h2>There are no notes yet...</h2>';
-    }
+    const generateSummary = (summary) => {
+        return `
+            <tr>
+                <td>${summary.category}</td>
+                <td>${summary.active}</td>   
+                <td>${summary.archived}</td>
+             </tr>
+        `;
+    };
 
-    summaryTableBody.innerHTML = summary().map(summary => generateSummary(summary)).join('');
-};
-fillTables();
+    const fillTables = () => {
+        if (notes.length > 0 && notes.some(note => !note.isArchive)) {
+            tableBody.innerHTML = notes.filter(note => !note.isArchive).map(note => generateNote(note)).join('');
+        } else {
+            tableBody.innerHTML = '<h2>There are no notes yet...</h2>';
+        }
 
-const deleteNote = (id) => {
-    notes = notes.filter(note => note.id !== id);
+        summaryTableBody.innerHTML = summary().map(summary => generateSummary(summary)).join('');
+    };
     fillTables();
-};
 
-const archiveNote = (id) => {
-    notes = notes.map(note => note.id === id ? {...note, isArchive: true} : note);
-    fillTables();
-};
+    const deleteNote = (id) => {
+        notes = notes.filter(note => note.id !== id);
+        fillTables();
+    };
 
-const editNote = (id) => {
-    fillTables();
-};
+    const archiveNote = (id) => {
+        notes = notes.map(note => note.id === id ? {...note, isArchive: true} : note);
+        fillTables();
+    };
+
+    const createNote = (e) => {
+        if (e.target) {
+            e.preventDefault();
+        }
+
+        const note = getFormData();
+        notes.push(note);
+
+        fillTables();
+        closeModal();
+    };
+    createBtn.addEventListener('click', createNote);
+
+    const editNote = (id) => {
+        modal.style.display = 'block';
+        editBtn.style.display = 'block';
+        createBtn.style.display = 'none';
+
+        const note = notes.find(note => note.id === id);
+        setFormData(note);
+
+        editBtn.addEventListener('click', e => {
+            const updatedNote = getFormData(note);
+            notes = notes.map(n => n.id === id ? updatedNote : n);
+            fillTables();
+            modal.style.display = 'none';
+        });
+    };
 
 
-window.deleteNote = deleteNote;
-window.archiveNote = archiveNote;
+    window.deleteNote = deleteNote;
+    window.archiveNote = archiveNote;
+    window.editNote = editNote;
+});
