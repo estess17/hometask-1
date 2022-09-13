@@ -76,3 +76,7 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.archived-modal .modal-content {
+    max-width: 1180px;
+}

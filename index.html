@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Hometask 1</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/modals.css">
 </head>
 <body>
     <table class="table">
@@ -41,7 +41,7 @@
         </tbody>
     </table>
 
-    <div id="myModal" class="modal">
+    <div class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <form>
@@ -71,7 +71,27 @@
         </div>
     </div>
 
+    <div id="archived-modal" class="modal archived-modal">
+        <div class="modal-content">
+            <span class="close archived-close">&times;</span>
+            <table class="table">
+                <thead class="table-head">
+                <tr>
+                    <th>Name</th>
+                    <th>Created</th>
+                    <th>Category</th>
+                    <th>Content</th>
+                    <th>Dates</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody class="table-body archived-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script src="js/main.js" type="module"></script>
-    <script src="js/modal.js" type="module"></script>
+    <script src="js/modals.js" type="module"></script>
 </body>
 </html>
