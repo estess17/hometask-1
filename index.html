@@ -4,55 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hometask 1</title>
     <link rel="stylesheet" href="css/main.css">
-    <script src="scripts/main.js"></script>
+    <link rel="stylesheet" href="css/modals.css">
 </head>
 <body>
-<table class="table">
-    <thead class="table-head">
+    <table class="table">
+        <thead class="table-head">
+            <tr>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Category</th>
+                <th>Content</th>
+                <th>Dates</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+        </tbody>
+    </table>
+
+    <div class="buttons">
+        <button class="archived">Archived</button>
+        <button class="create">Create Note</button>
+    </div>
+
+    <table class="table">
+        <thead class="table-head">
         <tr>
-            <th>Name</th>
-            <th>Created</th>
-            <th>Category</th>
-            <th>Content</th>
-            <th>Dates</th>
-            <th class="table-head__icons">
-                <img src="./assets/box-archive-solid.svg" alt="archive-icon">
-                <img src="./assets/trash-solid.svg" alt="delete-icon">
-            </th>
+            <th>Note Category</th>
+            <th>Active</th>
+            <th>Archived</th>
         </tr>
-    </thead>
-    <tbody class="table-body">
-        <tr>
-            <td>Shopping list</td>
-            <td>April 20,2021</td>
-            <td>Task</td>
-            <td>Tomatoes, bread</td>
-            <td></td>
-            <td>E,A,D</td>
-        </tr>
-        <tr>
-            <td>New Feature</td>
-            <td>May 05,2021</td>
-            <td>idea</td>
-            <td>
-                Implement new task todo list adadada 3/5/2021, 5/5/2021, Implement new task todo list
-                adadada 3/5/2021, 5/5/2021
-            </td>
-            <td class="column5">3/5/2021, 5/5/2021</td>
-            <td class="column6">E,A,D</td>
-        </tr>
-        <tr>
-            <td>Shopping list</td>
-            <td>April 20,2021</td>
-            <td>Task</td>
-            <td>Tomatoes, bread</td>
-            <td></td>
-            <td>E,A,D</td>
-        </tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody class="table-body summary-table-body">
+        </tbody>
+    </table>
+
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form>
+                <label>
+                    Name:
+                    <input type="text" placeholder="Name" id="name">
+                </label>
+                <label>
+                    Category:
+                    <select id="category">
+                        <option value="Task">Task</option>
+                        <option value="Idea">Idea</option>
+                        <option value="Random Thought">Random Thought</option>
+                    </select>
+                </label>
+
+                <label>
+                    Content:
+                    <textarea id="content" rows="5" placeholder="Content">
+
+                    </textarea>
+                </label>
+
+                <button class="modal-submit" id="createBtn">Create Note</button>
+                <button class="modal-submit" id="editBtn" style="display: none">Edit Note</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="archived-modal" class="modal archived-modal">
+        <div class="modal-content">
+            <span class="close archived-close">&times;</span>
+            <table class="table">
+                <thead class="table-head">
+                <tr>
+                    <th>Name</th>
+                    <th>Created</th>
+                    <th>Category</th>
+                    <th>Content</th>
+                    <th>Dates</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody class="table-body archived-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/main.js" type="module"></script>
+    <script src="js/modals.js" type="module"></script>
 </body>
 </html>
